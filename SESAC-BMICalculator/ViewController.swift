@@ -12,6 +12,8 @@ class ViewController: UIViewController {
     @IBOutlet var titleLabel: UILabel!
     @IBOutlet var subTitleLabel: UILabel!
     
+    @IBOutlet var nicknameTextField: UITextField!
+    
     @IBOutlet var mainImageView: UIImageView!
     
     @IBOutlet var heightLabel: UILabel!
@@ -26,6 +28,12 @@ class ViewController: UIViewController {
     
     @IBOutlet var randomButton: UIButton!
     
+    @IBOutlet var saveMyDataButton: UIButton!
+    
+    @IBOutlet var loadMyDataButton: UIButton!
+    
+    @IBOutlet var resetMyDataButton: UIButton!
+    
     @IBOutlet var resultButton: UIButton!
     
     override func viewDidLoad() {
@@ -35,7 +43,7 @@ class ViewController: UIViewController {
     
     @IBAction func resultButtonTapped(_ sender: UIButton) {
         // 안내 문구 초기화
-        hideValidLabel()
+        hideValidCheckLabel()
         
         // 텍스트필드 Optional 해제
         guard let userHeight = heightTextField.text else { return }
@@ -67,11 +75,47 @@ class ViewController: UIViewController {
         presentResultAlert(bmi, result)
     }
     
+    @IBAction func resetMyDataButtonTapped(_ sender: UIButton) {
+        // Data Remove
+        UserDefaults.standard.removeObject(forKey: "nickname")
+        UserDefaults.standard.removeObject(forKey: "height")
+        UserDefaults.standard.removeObject(forKey: "weight")
+        
+        // Remove Alert
+        presentAlert(text: "사용자 데이터가 초기화 되었습니다!")
+    }
+    
     @IBAction func randomButtonTapped(_ sender: UIButton) {
         let randomHeight = Double.random(in: 100...200)
         let randomWeight = Double.random(in: 30...150)
 
         setRandomData(randomHeight, randomWeight)
+    }
+    
+    @IBAction func loadMyDataButtonTapped(_ sender: UIButton) {
+        // Data Load
+        let nickname = loadMyData("nickname")
+        let userHeight = loadMyData("height")
+        let userWeight = loadMyData("weight")
+        
+        // Set Data
+        nicknameTextField.text = nickname
+        heightTextField.text = userHeight
+        weightTextField.text = userWeight
+    }
+    
+    @IBAction func saveMyDataButtonTapped(_ sender: UIButton) {
+        // Save
+        guard let nickname = nicknameTextField.text else { return }
+        guard let userHeight = heightTextField.text else { return }
+        guard let userWeight = weightTextField.text else { return }
+        
+        saveMyData("nickname", nickname)
+        saveMyData("height", userHeight)
+        saveMyData("weight", userWeight)
+ 
+        // Save Alert
+        presentAlert(text: "저장 되었습니다!")
     }
     
     func converToMeter(number: Double) -> Double {
@@ -84,6 +128,18 @@ class ViewController: UIViewController {
     
     @IBAction func tapGestureKeyboardDismiss(_ sender: UITapGestureRecognizer) {
         view.endEditing(true)
+    }
+    
+    // --- User Default   String : String
+    func loadMyData(_ key: String) -> String {
+        if let value = UserDefaults.standard.string(forKey: "\(key)") {
+            return value
+        }
+        return "ERROR"
+    }
+
+    func saveMyData(_ key: String, _ value: String) {
+        UserDefaults.standard.set(value, forKey: key)
     }
     
     // --- validation
@@ -108,7 +164,7 @@ class ViewController: UIViewController {
         return isValidHeight && isValidWeight
     }
     
-    func hideValidLabel() {
+    func hideValidCheckLabel() {
         validCheckLabel.isHidden = true
     }
 
@@ -148,6 +204,13 @@ class ViewController: UIViewController {
         alert.addAction(okButton)
         present(alert, animated: true)
     }
+    
+    func presentAlert(text: String) {
+        let alert = UIAlertController(title: nil, message: "\(text)", preferredStyle: .alert)
+        let okButton = UIAlertAction(title: "확인", style: .default)
+        alert.addAction(okButton)
+        present(alert, animated: true)
+    }
 
     // --- UI design
     func configurationUI() {
@@ -156,12 +219,16 @@ class ViewController: UIViewController {
         configurationMainImageView()
         configurationTextFieldLabel(heightLabel, "키(cm)")
         configurationTextFieldLabel(weightLabel, "몸무게(kg)")
+        configurationNicknameTextField()
         configurationTextField(heightTextField)
         configurationTextField(weightTextField)
         cofigurationValidCheckLabel()
         configureSecureButton()
         configurationRandomButton()
         configurationResultButton()
+        configurationMyDataButton(resetMyDataButton, title: "Reset")
+        configurationMyDataButton(loadMyDataButton, title: "Load")
+        configurationMyDataButton(saveMyDataButton, title: "Save")
     }
     
     func configurationMainImageView() {
@@ -176,6 +243,11 @@ class ViewController: UIViewController {
     func configurationSubTitleLabel() {
         subTitleLabel.text = "당신의 BMI 지수를 알려드릴게요."
         subTitleLabel.numberOfLines = 2
+    }
+    
+    func configurationNicknameTextField() {
+        configurationTextField(nicknameTextField)
+        nicknameTextField.placeholder = " 이름을 알려주세요!"
     }
     
     func configurationTextFieldLabel(_ label: UILabel, _ target: String) {
@@ -209,6 +281,11 @@ class ViewController: UIViewController {
         randomButton.setTitle("랜덤으로 BMI 계산하기 ", for: .normal)
         randomButton.setTitleColor(.systemBlue, for: .normal)
         randomButton.titleLabel?.font = .systemFont(ofSize: 15)
+    }
+    
+    func configurationMyDataButton(_ button: UIButton, title: String) {
+        button.setTitle("\(title)", for: .normal)
+        button.setTitleColor(.systemPurple, for: .normal)
     }
     
     func configurationResultButton() {
