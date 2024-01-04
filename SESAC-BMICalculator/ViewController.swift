@@ -135,7 +135,7 @@ class ViewController: UIViewController {
         if let value = UserDefaults.standard.string(forKey: "\(key)") {
             return value
         }
-        return "ERROR"
+        return ""
     }
 
     func saveMyData(_ key: String, _ value: String) {

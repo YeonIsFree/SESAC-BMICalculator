@@ -17,10 +17,10 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillProportionally" translatesAutoresizingMaskIntoConstraints="NO" id="whL-z4-m5e">
-                                <rect key="frame" x="30" y="119" width="93" height="104"/>
+                                <rect key="frame" x="30" y="119" width="113" height="104"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VT5-aZ-rSW">
-                                        <rect key="frame" x="0.0" y="0.0" width="93" height="24"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="113" height="24"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="24" id="kSC-Ol-f1K"/>
                                         </constraints>
@@ -29,7 +29,7 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="i80-hA-G72">
-                                        <rect key="frame" x="0.0" y="24" width="93" height="80"/>
+                                        <rect key="frame" x="0.0" y="24" width="113" height="80"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="80" id="JVW-bn-RUB"/>
                                         </constraints>
@@ -226,7 +226,7 @@
                             <constraint firstItem="3Dx-ZV-swQ" firstAttribute="top" secondItem="wVr-Zy-JNA" secondAttribute="bottom" id="THW-LI-MtW"/>
                             <constraint firstItem="maL-Oh-gU3" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="XAz-PM-5DG"/>
                             <constraint firstItem="Y37-3C-cBq" firstAttribute="top" secondItem="2Y8-c9-Snm" secondAttribute="bottom" constant="10.666666666666629" id="XMd-9z-WF6"/>
-                            <constraint firstItem="oMq-cC-AV0" firstAttribute="leading" secondItem="whL-z4-m5e" secondAttribute="trailing" constant="40" id="aAx-17-GzU"/>
+                            <constraint firstItem="oMq-cC-AV0" firstAttribute="leading" secondItem="whL-z4-m5e" secondAttribute="trailing" constant="20" id="aAx-17-GzU"/>
                             <constraint firstItem="wVr-Zy-JNA" firstAttribute="top" secondItem="maL-Oh-gU3" secondAttribute="bottom" id="e8I-KR-Mxu"/>
                             <constraint firstItem="whL-z4-m5e" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="30" id="hat-qZ-dMm"/>
                             <constraint firstItem="3Dx-ZV-swQ" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="200" id="hgZ-y7-Bfu"/>
